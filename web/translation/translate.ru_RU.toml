@@ -71,6 +71,7 @@
 "emptyBalancersDesc" = "Нет добавленных балансировщиков."
 "emptyReverseDesc" = "Нет добавленных реверс-прокси."
 "somethingWentWrong" = "Что-то пошло не так"
+"subeditor" = "Редактор подписки"
 
 [subscription]
 "title" = "Информация о подписке"
