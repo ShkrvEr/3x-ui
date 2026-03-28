@@ -71,6 +71,7 @@
 "emptyBalancersDesc" = "No added balancers."
 "emptyReverseDesc" = "No added reverse proxies."
 "somethingWentWrong" = "Something went wrong"
+"subeditor" = "Subscription editor"
 
 [subscription]
 "title" = "Subscription info"
