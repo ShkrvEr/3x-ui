@@ -22,7 +22,7 @@
 
 As an enhanced fork of the original X-UI project, 3X-UI provides improved stability, broader protocol support, and additional features.
 
-## Quick Start
+## ~~Quick Start~~ Not working yet. Use "manual installation" or "Local Development Setup"
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/ShkrvEr/3x-ui/master/install.sh)
