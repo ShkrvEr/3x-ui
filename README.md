@@ -22,7 +22,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/ShkrvEr/3x-ui/master/install.s
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./media/3x-ui-dark.png">
+    <source media="(prefers-color-scheme: dark)" srcset="./media/eg2.png">
     <img alt="3x-ui" src="./media/eg2.png">
   </picture>
 </p>
