@@ -71,7 +71,6 @@
 "emptyBalancersDesc" = "No added balancers."
 "emptyReverseDesc" = "No added reverse proxies."
 "somethingWentWrong" = "Something went wrong"
-"subeditor" = "Subscription editor"
 
 [subscription]
 "title" = "Subscription info"
@@ -93,6 +92,7 @@
 "ultraDark" = "Ultra Dark"
 "dashboard" = "Overview"
 "inbounds" = "Inbounds"
+"subeditor" = "Subscription editor"
 "settings" = "Panel Settings"
 "xray" = "Xray Configs"
 "logout" = "Log Out"
