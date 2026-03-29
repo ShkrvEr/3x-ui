@@ -71,7 +71,6 @@
 "emptyBalancersDesc" = "Нет добавленных балансировщиков."
 "emptyReverseDesc" = "Нет добавленных реверс-прокси."
 "somethingWentWrong" = "Что-то пошло не так"
-"subeditor" = "Редактор подписки"
 
 [subscription]
 "title" = "Информация о подписке"
@@ -93,6 +92,7 @@
 "ultraDark" = "Очень темная"
 "dashboard" = "Дашборд"
 "inbounds" = "Подключения"
+"subeditor" = "Редактор подписки"
 "settings" = "Настройки"
 "xray" = "Настройки Xray"
 "logout" = "Выход"
