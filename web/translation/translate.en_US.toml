@@ -92,11 +92,14 @@
 "ultraDark" = "Ultra Dark"
 "dashboard" = "Overview"
 "inbounds" = "Inbounds"
-"subeditor" = "Subscription editor"
 "settings" = "Panel Settings"
 "xray" = "Xray Configs"
 "logout" = "Log Out"
 "link" = "Manage"
+"subeditor" = "Subscription editor" 
+
+[pages.subeditor]  
+"title" = "Subscription editor"
 
 [pages.login]
 "hello" = "Hello"

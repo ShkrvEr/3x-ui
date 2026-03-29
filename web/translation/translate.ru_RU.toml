@@ -92,11 +92,14 @@
 "ultraDark" = "Очень темная"
 "dashboard" = "Дашборд"
 "inbounds" = "Подключения"
-"subeditor" = "Редактор подписки"
 "settings" = "Настройки"
 "xray" = "Настройки Xray"
 "logout" = "Выход"
 "link" = "Управление"
+"subeditor" = "Редактор подписки" 
+
+[pages.subeditor]  
+"title" = "Редактор подписки"
 
 [pages.login]
 "hello" = "Привет!"

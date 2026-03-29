@@ -5,7 +5,11 @@ import (
 	"fmt"
 	"net"
 	"net/url"
+	
+	"os"
+	"bufio"
 	"strings"
+	
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -86,6 +90,15 @@ func (s *SubService) GetSubs(subId string, host string) ([]string, int64, xray.C
 			}
 		}
 	}
+	
+	//moded
+	// Читаем дополнительные ключи из файла  
+	extraKeys, err := s.readExtraKeysFromFile("/root/3x-ui/extra-keys.txt")  
+    if err != nil {  
+        logger.Warning("Failed to read extra keys:", err)  
+    } else {  
+        result = append(result, extraKeys...)  
+    }
 
 	// Prepare statistics
 	for index, clientTraffic := range clientTraffics {
@@ -1196,4 +1209,26 @@ func getHostFromXFH(s string) (string, error) {
 		return realHost, nil
 	}
 	return s, nil
+}
+
+
+//moded
+// readExtraKeysFromFile читает дополнительные ключи из файла  
+func (s *SubService) readExtraKeysFromFile(filePath string) ([]string, error) {  
+    file, err := os.Open(filePath)  
+    if err != nil {  
+        return nil, err  
+    }  
+    defer file.Close()  
+      
+    var keys []string  
+    scanner := bufio.NewScanner(file)  
+    for scanner.Scan() {  
+        line := strings.TrimSpace(scanner.Text())  
+        if line != "" && !strings.HasPrefix(line, "#") {  
+            keys = append(keys, line)  
+        }  
+    }  
+      
+    return keys, scanner.Err()  
 }
