@@ -25,7 +25,7 @@ As an enhanced fork of the original X-UI project, 3X-UI provides improved stabil
 ## Quick Start
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/ShkrvEr/3x-ui/master/install.sh)
+~~bash <(curl -Ls https://raw.githubusercontent.com/ShkrvEr/3x-ui/master/install.sh)~~ Not working yet. Use "manual installation" or "Local Development Setup"
 ```
 
 For full documentation, please visit the [project Wiki](https://github.com/MHSanaei/3x-ui/wiki).
