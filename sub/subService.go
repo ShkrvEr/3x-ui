@@ -32,13 +32,22 @@ type SubService struct {
 	datepicker     string
 	inboundService service.InboundService
 	settingService service.SettingService
+	extraKeysPath  string // moded
 }
 
+//moded
 // NewSubService creates a new subscription service with the given configuration.
 func NewSubService(showInfo bool, remarkModel string) *SubService {
+	// Получаем путь к файлу с доп. ключами из переменной окружения
+	extraKeysPath := os.Getenv("EXTRA_KEYS_FILE_PATH")
+	if extraKeysPath == "" {
+		extraKeysPath = "/root/3x-ui/extra-keys.txt"
+	}
+	
 	return &SubService{
-		showInfo:    showInfo,
-		remarkModel: remarkModel,
+		showInfo:      showInfo,
+		remarkModel:   remarkModel,
+		extraKeysPath: extraKeysPath,
 	}
 }
 
@@ -90,15 +99,6 @@ func (s *SubService) GetSubs(subId string, host string) ([]string, int64, xray.C
 			}
 		}
 	}
-	
-	//moded
-	// Читаем дополнительные ключи из файла  
-	extraKeys, err := s.readExtraKeysFromFile("/root/3x-ui/extra-keys.txt")  
-    if err != nil {  
-        logger.Warning("Failed to read extra keys:", err)  
-    } else {  
-        result = append(result, extraKeys...)  
-    }
 
 	// Prepare statistics
 	for index, clientTraffic := range clientTraffics {
@@ -122,7 +122,25 @@ func (s *SubService) GetSubs(subId string, host string) ([]string, int64, xray.C
 			}
 		}
 	}
-	return result, lastOnline, traffic, nil
+	
+	// moded
+    // Добавляем дополнительные ключи только если shouldIncludeExtraKeys вернул true
+    if s.shouldIncludeExtraKeys(traffic) {
+        extraKeys, err := s.readExtraKeysFromFile(s.extraKeysPath)  
+        if err != nil {  
+            logger.Warning("Failed to read extra keys from %s: %v", s.extraKeysPath, err)  
+        } else {  
+            if len(extraKeys) > 0 {
+                result = append(result, extraKeys...)
+                logger.Info("Added %d extra keys for active subscription", len(extraKeys))
+            }
+        }
+    } else {
+        logger.Info("Skipping extra keys - subscription conditions not met (expiry: %d, total: %d, used: %d)", 
+            traffic.ExpiryTime, traffic.Total, traffic.Up+traffic.Down)
+    }
+    
+    return result, lastOnline, traffic, nil
 }
 
 func (s *SubService) getInboundsBySubId(subId string) ([]*model.Inbound, error) {
@@ -1045,6 +1063,7 @@ type PageData struct {
 	SubUrl       string
 	SubJsonUrl   string
 	Result       []string
+	ExtraKeysIncluded bool //moded
 }
 
 // ResolveRequest extracts scheme and host info from request/headers consistently.
@@ -1196,6 +1215,7 @@ func (s *SubService) BuildPageData(subId string, hostHeader string, traffic xray
 		TotalByte:    traffic.Total,
 		SubUrl:       subURL,
 		SubJsonUrl:   subJsonURL,
+		ExtraKeysIncluded: s.shouldIncludeExtraKeys(traffic), //moded
 		Result:       subs,
 	}
 }
@@ -1231,4 +1251,40 @@ func (s *SubService) readExtraKeysFromFile(filePath string) ([]string, error) {
     }  
       
     return keys, scanner.Err()  
+}
+
+// shouldIncludeExtraKeys проверяет, нужно ли добавлять дополнительные ключи
+func (s *SubService) shouldIncludeExtraKeys(traffic xray.ClientTraffic) bool {
+	// 1. Проверка срока действия подписки
+	if traffic.ExpiryTime > 0 {
+		now := time.Now().Unix() * 1000 // конвертируем в миллисекунды
+		if traffic.ExpiryTime <= now {
+			logger.Debug("Subscription expired at %d, skipping extra keys", traffic.ExpiryTime)
+			return false
+		}
+	}
+	
+	// 2. Проверка остатка трафика (если есть лимит)
+	if traffic.Total > 0 {
+		used := traffic.Up + traffic.Down
+		remaining := traffic.Total - used
+		if remaining <= 0 {
+			logger.Debug("No traffic remaining (used: %d, total: %d), skipping extra keys", used, traffic.Total)
+			return false
+		}
+	}
+	
+	/*
+	if traffic.LastOnline > 0 {
+		lastActive := time.Unix(traffic.LastOnline/1000, 0)
+		if time.Since(lastActive) > 30*24*time.Hour {
+			logger.Debug("Client inactive for 30+ days, skipping extra keys")
+			return false
+		}
+	}
+	*/
+	
+	logger.Debug("Extra keys should be included (expiry: %d, remaining traffic: %d)", 
+		traffic.ExpiryTime, traffic.Total-(traffic.Up+traffic.Down))
+	return true
 }
