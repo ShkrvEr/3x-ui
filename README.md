@@ -24,9 +24,9 @@ As an enhanced fork of the original X-UI project, 3X-UI provides improved stabil
 <p>OR</p>
 
 <p>
-  Create a directory named ```x-ui``` in the project root </br>
-  Rename ```.env.example``` to ```.env```  </br>
-  Run ```main.go``` </br>
+  Create a directory named <pre>x-ui</pre> in the project root </br>
+  Rename <pre>.env.example</pre> to <pre>.env</pre>  </br>
+  Run <pre>main.go</pre> </br>
 </p>
 
 <p align="center">
