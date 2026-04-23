@@ -16,9 +16,9 @@ As an enhanced fork of the original X-UI project, 3X-UI provides improved stabil
 
 ## Quick Start
 
-Create a directory named ```bash x-ui``` in the project root
-Rename ```bash .env.example``` to ```bash .env``` 
-Run ```bash main.go```
+Create a directory named ```x-ui``` in the project root
+Rename ```.env.example``` to ```.env``` 
+Run ```main.go```
 
 <p align="center">
   <picture>
