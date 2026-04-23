@@ -1,3 +1,5 @@
+[English](/README.md) | [Русский](/README.ru_RU.md)
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./media/3x-ui-dark.png">
