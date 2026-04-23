@@ -15,7 +15,9 @@
 As an enhanced fork of the original X-UI project, 3X-UI provides improved stability, broader protocol support, and additional features.
 
 ## Quick Start
-```bash git clone https://github.com/ShkrvEr/3x-ui && cd 3x-ui && mkdir -p x-ui && cp .env.example .env && go build -o x-ui/main main.go && cd x-ui && ./main```
+<code>
+  git clone https://github.com/ShkrvEr/3x-ui && cd 3x-ui && mkdir -p x-ui && cp .env.example .env && go build -o x-ui/main main.go && cd x-ui && ./main
+</code>
 
 <p>OR</p>
 
